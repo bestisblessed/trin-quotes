@@ -65,6 +65,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             controller.onAddQuote = { [weak self] quote in
                 self?.addQuote(quote)
             }
+            controller.onEditQuoteAtIndex = { [weak self] index, quote in
+                self?.editQuote(at: index, with: quote)
+            }
             controller.onRemoveQuoteAtIndex = { [weak self] index in
                 self?.removeQuote(at: index)
             }
@@ -110,6 +113,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
 
+            state.lastRotationAt = Date()
+        }
+    }
+
+    private func editQuote(at index: Int, with quote: String) {
+        let trimmedQuote = quote.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedQuote.isEmpty else { return }
+
+        mutateState { state in
+            guard state.quotes.indices.contains(index) else { return }
+            state.quotes[index] = trimmedQuote
             state.lastRotationAt = Date()
         }
     }
