@@ -1,0 +1,4 @@
+.derived/
+.gems/
+*.xcuserstate
+xcuserdata/
