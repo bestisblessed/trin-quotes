@@ -28,19 +28,28 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
     var onEditQuoteAtIndex: ((Int, String) -> Void)?
     var onRemoveQuoteAtIndex: ((Int) -> Void)?
     var onRotationIntervalChanged: ((Int, Int) -> Void)?
+    var onMenuBarStyleChanged: ((MenuBarStyle) -> Void)?
 
     private var quotes: [String] = []
     private var rotationHours: Int = AppState.defaultRotationHours
     private var rotationMinutes: Int = AppState.defaultRotationMinutes
+    private var menuBarStyle: MenuBarStyle = .default
 
     private let quoteInputField = QuoteInputTextField(string: "")
     private let addButton = NSButton(title: "Add", target: nil, action: nil)
     private let editButton = NSButton(title: "Edit", target: nil, action: nil)
     private let removeButton = NSButton(title: "Delete", target: nil, action: nil)
     private let exportButton = NSButton(title: "Export", target: nil, action: nil)
+    private let styleButton = NSButton(title: "Style…", target: nil, action: nil)
     private let doneButton = NSButton(title: "Done", target: nil, action: nil)
     private let rotationHoursField = NSTextField(string: "\(AppState.defaultRotationHours)")
     private let rotationMinutesField = NSTextField(string: "\(AppState.defaultRotationMinutes)")
+    private let stylePopover = NSPopover()
+    private let fontPresetPopup = NSPopUpButton()
+    private let sizePresetPopup = NSPopUpButton()
+    private let colorPresetPopup = NSPopUpButton()
+    private let boldCheckbox = NSButton(checkboxWithTitle: "Bold", target: nil, action: nil)
+    private var isRefreshingStyleControls = false
 
     private let tableView = NSTableView()
 
@@ -67,6 +76,7 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         quotes = state.quotes
         rotationHours = state.rotationHours
         rotationMinutes = state.rotationMinutes
+        menuBarStyle = state.menuBarStyle
         let previousSelectedRow = tableView.selectedRow
 
         tableView.reloadData()
@@ -76,6 +86,7 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         }
         updateSelectionButtons()
         refreshRotationFieldStrings()
+        refreshStyleControls()
     }
 
     private func setupUI() {
@@ -121,6 +132,8 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         editButton.action = #selector(editSelectedQuote)
         exportButton.target = self
         exportButton.action = #selector(exportQuotes)
+        styleButton.target = self
+        styleButton.action = #selector(showStylePopover)
         doneButton.target = self
         doneButton.action = #selector(doneManagingQuotes)
         removeButton.isEnabled = false
@@ -161,6 +174,7 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         bottomRow.addArrangedSubview(editButton)
         bottomRow.addArrangedSubview(removeButton)
         bottomRow.addArrangedSubview(exportButton)
+        bottomRow.addArrangedSubview(styleButton)
         bottomRow.addArrangedSubview(doneButton)
         bottomRow.addArrangedSubview(spacer)
         bottomRow.addArrangedSubview(rotationLabel)
@@ -186,6 +200,8 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
             rotationMinutesField.widthAnchor.constraint(equalToConstant: 52),
             spacer.widthAnchor.constraint(greaterThanOrEqualToConstant: 20)
         ])
+
+        configureStylePopover()
     }
 
     @objc private func addQuote() {
@@ -238,6 +254,39 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         close()
     }
 
+    @objc private func showStylePopover() {
+        if stylePopover.isShown {
+            stylePopover.close()
+            return
+        }
+
+        refreshStyleControls()
+        stylePopover.show(relativeTo: styleButton.bounds, of: styleButton, preferredEdge: .maxY)
+    }
+
+    @objc private func styleSelectionChanged() {
+        guard !isRefreshingStyleControls else { return }
+
+        let fontIndex = fontPresetPopup.indexOfSelectedItem
+        let sizeIndex = sizePresetPopup.indexOfSelectedItem
+        let colorIndex = colorPresetPopup.indexOfSelectedItem
+
+        guard MenuBarFontPreset.allCases.indices.contains(fontIndex),
+              MenuBarTextSizePreset.allCases.indices.contains(sizeIndex),
+              MenuBarColorPreset.allCases.indices.contains(colorIndex) else {
+            refreshStyleControls()
+            return
+        }
+
+        menuBarStyle = MenuBarStyle(
+            fontPreset: MenuBarFontPreset.allCases[fontIndex],
+            textSizePreset: MenuBarTextSizePreset.allCases[sizeIndex],
+            colorPreset: MenuBarColorPreset.allCases[colorIndex],
+            isBold: boldCheckbox.state == .on
+        )
+        onMenuBarStyleChanged?(menuBarStyle)
+    }
+
     @objc private func rotationFieldsAction() {
         commitRotationInterval()
     }
@@ -278,6 +327,82 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
     private func refreshRotationFieldStrings() {
         rotationHoursField.stringValue = rotationHours == 0 ? "" : "\(rotationHours)"
         rotationMinutesField.stringValue = "\(rotationMinutes)"
+    }
+
+    private func refreshStyleControls() {
+        isRefreshingStyleControls = true
+        defer { isRefreshingStyleControls = false }
+
+        if let fontIndex = MenuBarFontPreset.allCases.firstIndex(of: menuBarStyle.fontPreset) {
+            fontPresetPopup.selectItem(at: fontIndex)
+        }
+        if let sizeIndex = MenuBarTextSizePreset.allCases.firstIndex(of: menuBarStyle.textSizePreset) {
+            sizePresetPopup.selectItem(at: sizeIndex)
+        }
+        if let colorIndex = MenuBarColorPreset.allCases.firstIndex(of: menuBarStyle.colorPreset) {
+            colorPresetPopup.selectItem(at: colorIndex)
+        }
+        boldCheckbox.state = menuBarStyle.isBold ? .on : .off
+    }
+
+    private func configureStylePopover() {
+        fontPresetPopup.addItems(withTitles: MenuBarFontPreset.allCases.map(\.displayName))
+        sizePresetPopup.addItems(withTitles: MenuBarTextSizePreset.allCases.map(\.displayName))
+        colorPresetPopup.addItems(withTitles: MenuBarColorPreset.allCases.map(\.displayName))
+
+        fontPresetPopup.target = self
+        fontPresetPopup.action = #selector(styleSelectionChanged)
+        sizePresetPopup.target = self
+        sizePresetPopup.action = #selector(styleSelectionChanged)
+        colorPresetPopup.target = self
+        colorPresetPopup.action = #selector(styleSelectionChanged)
+        boldCheckbox.target = self
+        boldCheckbox.action = #selector(styleSelectionChanged)
+
+        let contentView = NSView(frame: NSRect(x: 0, y: 0, width: 240, height: 134))
+
+        let stack = NSStackView()
+        stack.orientation = .vertical
+        stack.spacing = 8
+        stack.translatesAutoresizingMaskIntoConstraints = false
+
+        stack.addArrangedSubview(makeStyleRow(label: "Font", popup: fontPresetPopup))
+        stack.addArrangedSubview(makeStyleRow(label: "Size", popup: sizePresetPopup))
+        stack.addArrangedSubview(makeStyleRow(label: "Color", popup: colorPresetPopup))
+        stack.addArrangedSubview(boldCheckbox)
+
+        contentView.addSubview(stack)
+        NSLayoutConstraint.activate([
+            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12)
+        ])
+
+        let controller = NSViewController()
+        controller.view = contentView
+
+        stylePopover.behavior = .transient
+        stylePopover.contentSize = NSSize(width: 240, height: 168)
+        stylePopover.contentViewController = controller
+    }
+
+    private func makeStyleRow(label: String, popup: NSPopUpButton) -> NSView {
+        let row = NSStackView()
+        row.orientation = .horizontal
+        row.spacing = 8
+
+        let labelField = NSTextField(labelWithString: label)
+        labelField.alignment = .right
+        labelField.setContentHuggingPriority(.required, for: .horizontal)
+        labelField.widthAnchor.constraint(equalToConstant: 44).isActive = true
+
+        popup.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        popup.translatesAutoresizingMaskIntoConstraints = false
+
+        row.addArrangedSubview(labelField)
+        row.addArrangedSubview(popup)
+        return row
     }
 
     func numberOfRows(in tableView: NSTableView) -> Int {

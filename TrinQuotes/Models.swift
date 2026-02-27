@@ -1,5 +1,141 @@
 import Foundation
 
+enum MenuBarFontPreset: String, Codable, CaseIterable {
+    case system
+    case rounded
+    case monospaced
+    case serif
+
+    var displayName: String {
+        switch self {
+        case .system:
+            return "System"
+        case .rounded:
+            return "Rounded"
+        case .monospaced:
+            return "Monospaced"
+        case .serif:
+            return "Serif"
+        }
+    }
+}
+
+enum MenuBarTextSizePreset: Int, Codable, CaseIterable {
+    case small = 12
+    case regular = 13
+    case large = 15
+
+    var displayName: String {
+        switch self {
+        case .small:
+            return "Small"
+        case .regular:
+            return "Regular"
+        case .large:
+            return "Large"
+        }
+    }
+}
+
+enum MenuBarColorPreset: String, Codable, CaseIterable {
+    case label
+    case red
+    case orange
+    case green
+    case blue
+    case pink
+    case yellow
+    case purple
+    case indigo
+    case teal
+    case cyan
+    case brown
+    case gray
+    case black
+
+    var displayName: String {
+        switch self {
+        case .label:
+            return "Label"
+        case .red:
+            return "Red"
+        case .orange:
+            return "Orange"
+        case .green:
+            return "Green"
+        case .blue:
+            return "Blue"
+        case .pink:
+            return "Pink"
+        case .yellow:
+            return "Yellow"
+        case .purple:
+            return "Purple"
+        case .indigo:
+            return "Indigo"
+        case .teal:
+            return "Teal"
+        case .cyan:
+            return "Cyan"
+        case .brown:
+            return "Brown"
+        case .gray:
+            return "Gray"
+        case .black:
+            return "Black"
+        }
+    }
+}
+
+struct MenuBarStyle: Codable, Equatable {
+    var fontPreset: MenuBarFontPreset
+    var textSizePreset: MenuBarTextSizePreset
+    var colorPreset: MenuBarColorPreset
+    var isBold: Bool
+
+    private enum CodingKeys: String, CodingKey {
+        case fontPreset
+        case textSizePreset
+        case colorPreset
+        case isBold
+    }
+
+    static let `default` = MenuBarStyle(
+        fontPreset: .system,
+        textSizePreset: .regular,
+        colorPreset: .label,
+        isBold: false
+    )
+
+    init(
+        fontPreset: MenuBarFontPreset,
+        textSizePreset: MenuBarTextSizePreset,
+        colorPreset: MenuBarColorPreset,
+        isBold: Bool = false
+    ) {
+        self.fontPreset = fontPreset
+        self.textSizePreset = textSizePreset
+        self.colorPreset = colorPreset
+        self.isBold = isBold
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        fontPreset = try container.decodeIfPresent(MenuBarFontPreset.self, forKey: .fontPreset) ?? .system
+        textSizePreset = try container.decodeIfPresent(MenuBarTextSizePreset.self, forKey: .textSizePreset) ?? .regular
+        colorPreset = try container.decodeIfPresent(MenuBarColorPreset.self, forKey: .colorPreset) ?? .label
+        isBold = try container.decodeIfPresent(Bool.self, forKey: .isBold) ?? false
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(fontPreset, forKey: .fontPreset)
+        try container.encode(textSizePreset, forKey: .textSizePreset)
+        try container.encode(colorPreset, forKey: .colorPreset)
+        try container.encode(isBold, forKey: .isBold)
+    }
+}
+
 struct AppState: Codable, Equatable {
     static let defaultRotationHours = 6
     static let defaultRotationMinutes = 0
@@ -11,6 +147,7 @@ struct AppState: Codable, Equatable {
     var quotes: [String]
     var rotationHours: Int
     var rotationMinutes: Int
+    var menuBarStyle: MenuBarStyle
     var currentIndex: Int?
     var lastRotationAt: Date?
 
@@ -18,6 +155,7 @@ struct AppState: Codable, Equatable {
         case quotes
         case rotationHours
         case rotationMinutes
+        case menuBarStyle
         case currentIndex
         case lastRotationAt
     }
@@ -26,12 +164,14 @@ struct AppState: Codable, Equatable {
         quotes: [String],
         rotationHours: Int,
         rotationMinutes: Int = defaultRotationMinutes,
+        menuBarStyle: MenuBarStyle = .default,
         currentIndex: Int?,
         lastRotationAt: Date?
     ) {
         self.quotes = quotes
         self.rotationHours = rotationHours
         self.rotationMinutes = rotationMinutes
+        self.menuBarStyle = menuBarStyle
         self.currentIndex = currentIndex
         self.lastRotationAt = lastRotationAt
     }
@@ -41,6 +181,7 @@ struct AppState: Codable, Equatable {
             quotes: [],
             rotationHours: defaultRotationHours,
             rotationMinutes: defaultRotationMinutes,
+            menuBarStyle: .default,
             currentIndex: nil,
             lastRotationAt: nil
         )
@@ -120,6 +261,7 @@ struct AppState: Codable, Equatable {
         quotes = try container.decodeIfPresent([String].self, forKey: .quotes) ?? []
         rotationHours = try container.decodeIfPresent(Int.self, forKey: .rotationHours) ?? Self.defaultRotationHours
         rotationMinutes = try container.decodeIfPresent(Int.self, forKey: .rotationMinutes) ?? Self.defaultRotationMinutes
+        menuBarStyle = try container.decodeIfPresent(MenuBarStyle.self, forKey: .menuBarStyle) ?? .default
         currentIndex = try container.decodeIfPresent(Int.self, forKey: .currentIndex)
         lastRotationAt = try container.decodeIfPresent(Date.self, forKey: .lastRotationAt)
     }
@@ -129,6 +271,7 @@ struct AppState: Codable, Equatable {
         try container.encode(quotes, forKey: .quotes)
         try container.encode(rotationHours, forKey: .rotationHours)
         try container.encode(rotationMinutes, forKey: .rotationMinutes)
+        try container.encode(menuBarStyle, forKey: .menuBarStyle)
         try container.encode(currentIndex, forKey: .currentIndex)
         try container.encode(lastRotationAt, forKey: .lastRotationAt)
     }

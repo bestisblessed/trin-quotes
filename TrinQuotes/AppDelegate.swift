@@ -74,6 +74,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             controller.onRotationIntervalChanged = { [weak self] hours, minutes in
                 self?.setRotationInterval(hours: hours, minutes: minutes)
             }
+            controller.onMenuBarStyleChanged = { [weak self] style in
+                self?.setMenuBarStyle(style)
+            }
             manageQuotesWindowController = controller
         }
 
@@ -136,6 +139,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             state.rotationHours = normalized.hours
             state.rotationMinutes = normalized.minutes
             state.lastRotationAt = Date()
+        }
+    }
+
+    private func setMenuBarStyle(_ style: MenuBarStyle) {
+        mutateState { state in
+            state.menuBarStyle = style
         }
     }
 

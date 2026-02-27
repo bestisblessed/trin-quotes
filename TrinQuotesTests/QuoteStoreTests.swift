@@ -1,4 +1,5 @@
 import XCTest
+import AppKit
 @testable import TrinQuotes
 
 final class QuoteStoreTests: XCTestCase {
@@ -26,6 +27,12 @@ final class QuoteStoreTests: XCTestCase {
             quotes: ["Quote A", "Quote B"],
             rotationHours: 12,
             rotationMinutes: 45,
+            menuBarStyle: MenuBarStyle(
+                fontPreset: .monospaced,
+                textSizePreset: .large,
+                colorPreset: .blue,
+                isBold: true
+            ),
             currentIndex: 1,
             lastRotationAt: timestamp
         )
@@ -48,6 +55,11 @@ final class QuoteStoreTests: XCTestCase {
             quotes: ["Only quote"],
             rotationHours: 999,
             rotationMinutes: 999,
+            menuBarStyle: MenuBarStyle(
+                fontPreset: .rounded,
+                textSizePreset: .small,
+                colorPreset: .green
+            ),
             currentIndex: 25,
             lastRotationAt: Date(timeIntervalSince1970: 10)
         )
@@ -60,6 +72,8 @@ final class QuoteStoreTests: XCTestCase {
         XCTAssertEqual(loaded.rotationHours, AppState.maxRotationHours)
         XCTAssertEqual(loaded.rotationMinutes, AppState.maxRotationMinutes)
         XCTAssertEqual(loaded.currentIndex, 0)
+        XCTAssertEqual(loaded.menuBarStyle.colorPreset, .green)
+        XCTAssertFalse(loaded.menuBarStyle.isBold)
     }
 
     func testLoadBackwardCompatibleStateWithoutMinutes() throws {
@@ -77,5 +91,50 @@ final class QuoteStoreTests: XCTestCase {
         let loaded = store.load()
         XCTAssertEqual(loaded.rotationHours, 2)
         XCTAssertEqual(loaded.rotationMinutes, AppState.defaultRotationMinutes)
+        XCTAssertEqual(loaded.menuBarStyle, .default)
+    }
+
+    func testMenuBarFontPresetMappingResolvesFonts() {
+        for preset in MenuBarFontPreset.allCases {
+            let style = MenuBarStyle(
+                fontPreset: preset,
+                textSizePreset: .regular,
+                colorPreset: .label
+            )
+            let font = StatusBarController.font(for: style)
+
+            XCTAssertGreaterThan(font.pointSize, 0)
+        }
+    }
+
+    func testMenuBarColorPresetMappingResolvesExpectedColors() {
+        let expected: [MenuBarColorPreset: NSColor] = [
+            .label: .labelColor,
+            .red: .systemRed,
+            .orange: .systemOrange,
+            .green: .systemGreen,
+            .blue: .systemBlue,
+            .pink: .systemPink,
+            .yellow: .systemYellow,
+            .purple: .systemPurple,
+            .indigo: .systemIndigo,
+            .teal: .systemTeal,
+            .cyan: .systemCyan,
+            .brown: .systemBrown,
+            .gray: .systemGray,
+            .black: .black
+        ]
+
+        for preset in MenuBarColorPreset.allCases {
+            let style = MenuBarStyle(
+                fontPreset: .system,
+                textSizePreset: .regular,
+                colorPreset: preset
+            )
+            let mapped = StatusBarController.color(for: style)
+            let target = expected[preset] ?? .labelColor
+
+            XCTAssertTrue(mapped.isEqual(target))
+        }
     }
 }

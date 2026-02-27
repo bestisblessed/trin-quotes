@@ -23,14 +23,16 @@ final class StatusBarController: NSObject {
     }
 
     func render(state: AppState) {
+        let displayText: String
         if let quote = state.currentQuote {
-            statusItem.button?.title = Self.truncatedTitle(from: quote)
+            displayText = Self.truncatedTitle(from: quote)
             currentQuoteItem.title = quote
         } else {
-            statusItem.button?.title = "No quotes"
+            displayText = "No quotes"
             currentQuoteItem.title = "No quotes configured"
         }
 
+        statusItem.button?.attributedTitle = Self.attributedTitle(for: displayText, style: state.menuBarStyle)
         currentQuoteItem.isEnabled = false
         nextQuoteItem.isEnabled = !state.quotes.isEmpty
     }
@@ -75,5 +77,70 @@ final class StatusBarController: NSObject {
 
         let prefix = quote.prefix(maxVisibleCharacters)
         return "\(prefix)…"
+    }
+
+    private static func attributedTitle(for text: String, style: MenuBarStyle) -> NSAttributedString {
+        NSAttributedString(
+            string: text,
+            attributes: [
+                .font: font(for: style),
+                .foregroundColor: color(for: style)
+            ]
+        )
+    }
+
+    static func font(for style: MenuBarStyle) -> NSFont {
+        let size = CGFloat(style.textSizePreset.rawValue)
+        let weight: NSFont.Weight = style.isBold ? .bold : .regular
+
+        switch style.fontPreset {
+        case .system:
+            return .systemFont(ofSize: size, weight: weight)
+        case .rounded:
+            if let descriptor = NSFont.systemFont(ofSize: size, weight: weight).fontDescriptor.withDesign(.rounded),
+               let font = NSFont(descriptor: descriptor, size: size) {
+                return font
+            }
+            return .systemFont(ofSize: size, weight: weight)
+        case .monospaced:
+            return .monospacedSystemFont(ofSize: size, weight: weight)
+        case .serif:
+            let base = NSFont(name: "Times New Roman", size: size) ?? .systemFont(ofSize: size, weight: .regular)
+            guard style.isBold else { return base }
+            return NSFontManager.shared.convert(base, toHaveTrait: .boldFontMask)
+        }
+    }
+
+    static func color(for style: MenuBarStyle) -> NSColor {
+        switch style.colorPreset {
+        case .label:
+            return .labelColor
+        case .red:
+            return .systemRed
+        case .orange:
+            return .systemOrange
+        case .green:
+            return .systemGreen
+        case .blue:
+            return .systemBlue
+        case .pink:
+            return .systemPink
+        case .yellow:
+            return .systemYellow
+        case .purple:
+            return .systemPurple
+        case .indigo:
+            return .systemIndigo
+        case .teal:
+            return .systemTeal
+        case .cyan:
+            return .systemCyan
+        case .brown:
+            return .systemBrown
+        case .gray:
+            return .systemGray
+        case .black:
+            return .black
+        }
     }
 }
