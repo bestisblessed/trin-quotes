@@ -27,17 +27,19 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
     var onAddQuote: ((String) -> Void)?
     var onEditQuoteAtIndex: ((Int, String) -> Void)?
     var onRemoveQuoteAtIndex: ((Int) -> Void)?
-    var onRotationHoursChanged: ((Int) -> Void)?
+    var onRotationIntervalChanged: ((Int, Int) -> Void)?
 
     private var quotes: [String] = []
     private var rotationHours: Int = AppState.defaultRotationHours
+    private var rotationMinutes: Int = AppState.defaultRotationMinutes
 
     private let quoteInputField = QuoteInputTextField(string: "")
     private let addButton = NSButton(title: "Add", target: nil, action: nil)
     private let editButton = NSButton(title: "Edit", target: nil, action: nil)
     private let removeButton = NSButton(title: "Delete", target: nil, action: nil)
     private let exportButton = NSButton(title: "Export", target: nil, action: nil)
-    private let rotationField = NSTextField(string: "\(AppState.defaultRotationHours)")
+    private let rotationHoursField = NSTextField(string: "\(AppState.defaultRotationHours)")
+    private let rotationMinutesField = NSTextField(string: "\(AppState.defaultRotationMinutes)")
 
     private let tableView = NSTableView()
 
@@ -63,6 +65,7 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
     func render(state: AppState) {
         quotes = state.quotes
         rotationHours = state.rotationHours
+        rotationMinutes = state.rotationMinutes
         let previousSelectedRow = tableView.selectedRow
 
         tableView.reloadData()
@@ -71,7 +74,7 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
             quoteInputField.stringValue = quotes[previousSelectedRow]
         }
         updateSelectionButtons()
-        rotationField.stringValue = "\(rotationHours)"
+        refreshRotationFieldStrings()
     }
 
     private func setupUI() {
@@ -123,25 +126,44 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         let spacer = NSView()
         spacer.translatesAutoresizingMaskIntoConstraints = false
 
-        let rotationLabel = NSTextField(labelWithString: "Rotation (hours)")
+        let rotationLabel = NSTextField(labelWithString: "Rotation")
+        let hourLabel = NSTextField(labelWithString: "h")
+        let minuteLabel = NSTextField(labelWithString: "m")
 
-        rotationField.delegate = self
-        rotationField.target = self
-        rotationField.action = #selector(rotationFieldAction)
-        rotationField.alignment = .right
+        rotationHoursField.placeholderString = "0"
+        rotationMinutesField.placeholderString = "0"
 
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .none
-        formatter.minimum = NSNumber(value: AppState.minRotationHours)
-        formatter.maximum = NSNumber(value: AppState.maxRotationHours)
-        rotationField.formatter = formatter
+        rotationHoursField.delegate = self
+        rotationHoursField.target = self
+        rotationHoursField.action = #selector(rotationFieldsAction)
+        rotationHoursField.alignment = .right
+
+        rotationMinutesField.delegate = self
+        rotationMinutesField.target = self
+        rotationMinutesField.action = #selector(rotationFieldsAction)
+        rotationMinutesField.alignment = .right
+
+        let hourFormatter = NumberFormatter()
+        hourFormatter.numberStyle = .none
+        hourFormatter.minimum = NSNumber(value: AppState.minRotationHours)
+        hourFormatter.maximum = NSNumber(value: AppState.maxRotationHours)
+        rotationHoursField.formatter = hourFormatter
+
+        let minuteFormatter = NumberFormatter()
+        minuteFormatter.numberStyle = .none
+        minuteFormatter.minimum = NSNumber(value: AppState.minRotationMinutes)
+        minuteFormatter.maximum = NSNumber(value: AppState.maxRotationMinutes)
+        rotationMinutesField.formatter = minuteFormatter
 
         bottomRow.addArrangedSubview(editButton)
         bottomRow.addArrangedSubview(removeButton)
         bottomRow.addArrangedSubview(exportButton)
         bottomRow.addArrangedSubview(spacer)
         bottomRow.addArrangedSubview(rotationLabel)
-        bottomRow.addArrangedSubview(rotationField)
+        bottomRow.addArrangedSubview(rotationHoursField)
+        bottomRow.addArrangedSubview(hourLabel)
+        bottomRow.addArrangedSubview(rotationMinutesField)
+        bottomRow.addArrangedSubview(minuteLabel)
 
         contentView.addSubview(rootStack)
         rootStack.addArrangedSubview(inputRow)
@@ -156,7 +178,8 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
 
             addButton.widthAnchor.constraint(equalToConstant: 72),
             scrollView.heightAnchor.constraint(greaterThanOrEqualToConstant: 220),
-            rotationField.widthAnchor.constraint(equalToConstant: 60),
+            rotationHoursField.widthAnchor.constraint(equalToConstant: 52),
+            rotationMinutesField.widthAnchor.constraint(equalToConstant: 52),
             spacer.widthAnchor.constraint(greaterThanOrEqualToConstant: 20)
         ])
     }
@@ -206,25 +229,46 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         }
     }
 
-    @objc private func rotationFieldAction() {
-        commitRotationHours()
+    @objc private func rotationFieldsAction() {
+        commitRotationInterval()
     }
 
     func controlTextDidEndEditing(_ obj: Notification) {
-        guard let editedField = obj.object as? NSTextField, editedField == rotationField else {
+        guard let editedField = obj.object as? NSTextField,
+              editedField == rotationHoursField || editedField == rotationMinutesField else {
             return
         }
-        commitRotationHours()
+        commitRotationInterval()
     }
 
-    private func commitRotationHours() {
-        let enteredHours = Int(rotationField.stringValue) ?? rotationHours
-        let normalizedHours = AppState.clampedRotationHours(enteredHours)
-        rotationField.stringValue = "\(normalizedHours)"
+    private func commitRotationInterval() {
+        let hoursInput = rotationHoursField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        let minutesInput = rotationMinutesField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        guard normalizedHours != rotationHours else { return }
-        rotationHours = normalizedHours
-        onRotationHoursChanged?(normalizedHours)
+        if hoursInput.isEmpty, minutesInput.isEmpty {
+            refreshRotationFieldStrings()
+            return
+        }
+
+        let enteredHours = hoursInput.isEmpty ? 0 : (Int(hoursInput) ?? rotationHours)
+        let enteredMinutes = minutesInput.isEmpty ? 0 : (Int(minutesInput) ?? rotationMinutes)
+        let normalized = AppState.clampedRotationInterval(hours: enteredHours, minutes: enteredMinutes)
+
+        guard normalized.hours != 0 || normalized.minutes != 0 else {
+            refreshRotationFieldStrings()
+            return
+        }
+
+        rotationHours = normalized.hours
+        rotationMinutes = normalized.minutes
+        refreshRotationFieldStrings()
+
+        onRotationIntervalChanged?(rotationHours, rotationMinutes)
+    }
+
+    private func refreshRotationFieldStrings() {
+        rotationHoursField.stringValue = rotationHours == 0 ? "" : "\(rotationHours)"
+        rotationMinutesField.stringValue = "\(rotationMinutes)"
     }
 
     func numberOfRows(in tableView: NSTableView) -> Int {

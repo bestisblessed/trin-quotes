@@ -61,7 +61,7 @@ final class QuoteRotator {
             return state != originalState
         }
 
-        let intervalSeconds = TimeInterval(state.rotationHours * 3600)
+        let intervalSeconds = TimeInterval(state.rotationIntervalSeconds)
         guard intervalSeconds > 0 else {
             return state != originalState
         }

@@ -71,8 +71,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             controller.onRemoveQuoteAtIndex = { [weak self] index in
                 self?.removeQuote(at: index)
             }
-            controller.onRotationHoursChanged = { [weak self] hours in
-                self?.setRotationHours(hours)
+            controller.onRotationIntervalChanged = { [weak self] hours, minutes in
+                self?.setRotationInterval(hours: hours, minutes: minutes)
             }
             manageQuotesWindowController = controller
         }
@@ -128,9 +128,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    private func setRotationHours(_ hours: Int) {
+    private func setRotationInterval(hours: Int, minutes: Int) {
+        let normalized = AppState.clampedRotationInterval(hours: hours, minutes: minutes)
+        guard normalized.hours != 0 || normalized.minutes != 0 else { return }
+
         mutateState { state in
-            state.rotationHours = AppState.clampedRotationHours(hours)
+            state.rotationHours = normalized.hours
+            state.rotationMinutes = normalized.minutes
             state.lastRotationAt = Date()
         }
     }

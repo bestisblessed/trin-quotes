@@ -19,6 +19,7 @@ final class QuoteRotatorTests: XCTestCase {
         var state = AppState(
             quotes: ["A", "B", "C"],
             rotationHours: 1,
+            rotationMinutes: 0,
             currentIndex: 2,
             lastRotationAt: Date(timeIntervalSince1970: 0)
         )
@@ -37,6 +38,7 @@ final class QuoteRotatorTests: XCTestCase {
         var state = AppState(
             quotes: ["A", "B", "C", "D"],
             rotationHours: 1,
+            rotationMinutes: 0,
             currentIndex: 0,
             lastRotationAt: Date(timeIntervalSince1970: 0)
         )
@@ -51,26 +53,30 @@ final class QuoteRotatorTests: XCTestCase {
         XCTAssertEqual(state.lastRotationAt, Date(timeIntervalSince1970: 3 * 3600))
     }
 
-    func testRotationHoursAreClampedByNormalization() {
+    func testMinuteOnlyRotationWorksWithZeroHours() {
         var state = AppState(
             quotes: ["A"],
             rotationHours: 0,
+            rotationMinutes: 30,
             currentIndex: 0,
             lastRotationAt: Date(timeIntervalSince1970: 0)
         )
 
-        _ = QuoteRotator.applyRotationIfNeeded(
+        let changed = QuoteRotator.applyRotationIfNeeded(
             state: &state,
-            now: Date(timeIntervalSince1970: 0)
+            now: Date(timeIntervalSince1970: 1800)
         )
 
-        XCTAssertEqual(state.rotationHours, AppState.minRotationHours)
+        XCTAssertTrue(changed)
+        XCTAssertEqual(state.rotationHours, 0)
+        XCTAssertEqual(state.rotationMinutes, 30)
     }
 
     func testForceNextQuoteAdvancesAndSetsTimestamp() {
         var state = AppState(
             quotes: ["A", "B", "C"],
             rotationHours: 6,
+            rotationMinutes: 0,
             currentIndex: 1,
             lastRotationAt: Date(timeIntervalSince1970: 0)
         )
@@ -87,6 +93,7 @@ final class QuoteRotatorTests: XCTestCase {
         let stored = AppState(
             quotes: ["A", "B", "C"],
             rotationHours: 6,
+            rotationMinutes: 0,
             currentIndex: nil,
             lastRotationAt: nil
         )
