@@ -38,6 +38,7 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
     private let editButton = NSButton(title: "Edit", target: nil, action: nil)
     private let removeButton = NSButton(title: "Delete", target: nil, action: nil)
     private let exportButton = NSButton(title: "Export", target: nil, action: nil)
+    private let doneButton = NSButton(title: "Done", target: nil, action: nil)
     private let rotationHoursField = NSTextField(string: "\(AppState.defaultRotationHours)")
     private let rotationMinutesField = NSTextField(string: "\(AppState.defaultRotationMinutes)")
 
@@ -120,6 +121,8 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         editButton.action = #selector(editSelectedQuote)
         exportButton.target = self
         exportButton.action = #selector(exportQuotes)
+        doneButton.target = self
+        doneButton.action = #selector(doneManagingQuotes)
         removeButton.isEnabled = false
         editButton.isEnabled = false
 
@@ -158,6 +161,7 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         bottomRow.addArrangedSubview(editButton)
         bottomRow.addArrangedSubview(removeButton)
         bottomRow.addArrangedSubview(exportButton)
+        bottomRow.addArrangedSubview(doneButton)
         bottomRow.addArrangedSubview(spacer)
         bottomRow.addArrangedSubview(rotationLabel)
         bottomRow.addArrangedSubview(rotationHoursField)
@@ -227,6 +231,11 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         } catch {
             NSAlert(error: error).runModal()
         }
+    }
+
+    @objc private func doneManagingQuotes() {
+        window?.makeFirstResponder(nil)
+        close()
     }
 
     @objc private func rotationFieldsAction() {
