@@ -7,153 +7,156 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15B41EA6B639B57496FC2924 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7455FA7E447845C3A409337F /* StatusBarController.swift */; };
-		237B67B1866352281198B29A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDD40276C3426E73DE1CD6F /* AppDelegate.swift */; };
-		2673166CA528C626AD2A72C0 /* QuoteRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EA65D05FF717F5F15E5FBB /* QuoteRotator.swift */; };
-		2DD8F667AC8841569B81075F /* QuoteRotatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60AD44FB74C4784471BF3441 /* QuoteRotatorTests.swift */; };
-		4CF8EA8AEDE389FC6FF27092 /* QuoteStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B0403C838AF95C22C66D04 /* QuoteStoreTests.swift */; };
-		6E4EE8761D7A9F8608117175 /* ManageQuotesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D08E66BA365EC84A7DCBDE /* ManageQuotesWindowController.swift */; };
-		9FE115467F79BF2EC19B414C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 396363D3642BE3A76CF47F36 /* Cocoa.framework */; };
-		A55224E3432A2098C42AF8D3 /* QuoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A78F094601186C7A65F4825 /* QuoteStore.swift */; };
-		DBD06A2D6077C1D2CCE2FAAE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 396363D3642BE3A76CF47F36 /* Cocoa.framework */; };
-		DD7462DCD81A888FB0FF4DC1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D89D01723A821AEB792B89 /* Models.swift */; };
-		F9FEC8F87622BA5629EA1960 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D82D1251D0A8BC29D03644B /* XCTest.framework */; };
+		002F5C21610C0A578CC618C7 /* QuoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00893DCD1912AF7F2A87AF /* QuoteStore.swift */; };
+		1C0B2378318BB8510704AEC1 /* QuoteStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E9A7B88C54D2FA2F45959E /* QuoteStoreTests.swift */; };
+		24446B92FA2421DE4D169FB1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97325C02F127ABE99F6253ED /* main.swift */; };
+		28C3B10297BAE0F539B2DF4A /* QuoteRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2996956BCFB950704B0B137 /* QuoteRotator.swift */; };
+		301D2B7D1A9C7C2D8351F7AC /* QuoteRotatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AE3E39F5936CD7367852DB /* QuoteRotatorTests.swift */; };
+		47601BE564E2583A655C629C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F1B5DE222317495D4AF05E /* Cocoa.framework */; };
+		4874E534ED7724B5B1AEC517 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF6416883906272C02A58CF /* StatusBarController.swift */; };
+		767D13CDECC189DA4A116BC5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7602037531FE7F92BE2E93D2 /* XCTest.framework */; };
+		8CC254D020D34251CC7723F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCDCFD564E6C76C9889776A8 /* AppDelegate.swift */; };
+		9CCDB6E16D8AE1B4C06B2001 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F1B5DE222317495D4AF05E /* Cocoa.framework */; };
+		9E687135F49E83FBB4BB92F3 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7094C8E6AEEE8B26C9D693 /* Models.swift */; };
+		D4FC99CD768926F50712C479 /* ManageQuotesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BE25D00D90E6D6D64D6C35 /* ManageQuotesWindowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CF9B6917F78E79F0A647BC81 /* PBXContainerItemProxy */ = {
+		AEEEFD157BE10B2663AAD71F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = B560A2DECE8F0AC747D16AF7 /* Project object */;
+			containerPortal = 784855F02A92C9AF2B10AF4E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B1CFB9D57B9E31DB3E188EF0;
+			remoteGlobalIDString = C2D7E3D79ABC2C78E3F83720;
 			remoteInfo = TrinQuotes;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		08B0403C838AF95C22C66D04 /* QuoteStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuoteStoreTests.swift; path = TrinQuotesTests/QuoteStoreTests.swift; sourceTree = "<group>"; };
-		1BF79138C3DD79DAE71B07CE /* TrinQuotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrinQuotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		396363D3642BE3A76CF47F36 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
-		3BDD40276C3426E73DE1CD6F /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = TrinQuotes/AppDelegate.swift; sourceTree = "<group>"; };
-		42D89D01723A821AEB792B89 /* Models.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Models.swift; path = TrinQuotes/Models.swift; sourceTree = "<group>"; };
-		60AD44FB74C4784471BF3441 /* QuoteRotatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuoteRotatorTests.swift; path = TrinQuotesTests/QuoteRotatorTests.swift; sourceTree = "<group>"; };
-		6942578C7DB1EC80F4A919FC /* TrinQuotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrinQuotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A78F094601186C7A65F4825 /* QuoteStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuoteStore.swift; path = TrinQuotes/QuoteStore.swift; sourceTree = "<group>"; };
-		71EA65D05FF717F5F15E5FBB /* QuoteRotator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuoteRotator.swift; path = TrinQuotes/QuoteRotator.swift; sourceTree = "<group>"; };
-		7455FA7E447845C3A409337F /* StatusBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StatusBarController.swift; path = TrinQuotes/StatusBarController.swift; sourceTree = "<group>"; };
-		9D82D1251D0A8BC29D03644B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = "<group>"; };
-		D6688054CCAEB160E10E6BA7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = TrinQuotes/Info.plist; sourceTree = "<group>"; };
-		F1D08E66BA365EC84A7DCBDE /* ManageQuotesWindowController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ManageQuotesWindowController.swift; path = TrinQuotes/ManageQuotesWindowController.swift; sourceTree = "<group>"; };
+		14CE784DECF74EE8C5DC9B3D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = TrinQuotes/Info.plist; sourceTree = "<group>"; };
+		1EF6416883906272C02A58CF /* StatusBarController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StatusBarController.swift; path = TrinQuotes/StatusBarController.swift; sourceTree = "<group>"; };
+		26AE3E39F5936CD7367852DB /* QuoteRotatorTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuoteRotatorTests.swift; path = TrinQuotesTests/QuoteRotatorTests.swift; sourceTree = "<group>"; };
+		3A00893DCD1912AF7F2A87AF /* QuoteStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuoteStore.swift; path = TrinQuotes/QuoteStore.swift; sourceTree = "<group>"; };
+		6D7094C8E6AEEE8B26C9D693 /* Models.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Models.swift; path = TrinQuotes/Models.swift; sourceTree = "<group>"; };
+		70E9A7B88C54D2FA2F45959E /* QuoteStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuoteStoreTests.swift; path = TrinQuotesTests/QuoteStoreTests.swift; sourceTree = "<group>"; };
+		7602037531FE7F92BE2E93D2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = "<group>"; };
+		82F080D7C0A27982DA616381 /* TrinQuotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrinQuotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		94BE25D00D90E6D6D64D6C35 /* ManageQuotesWindowController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ManageQuotesWindowController.swift; path = TrinQuotes/ManageQuotesWindowController.swift; sourceTree = "<group>"; };
+		97325C02F127ABE99F6253ED /* main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = main.swift; path = TrinQuotes/main.swift; sourceTree = "<group>"; };
+		A7F1B5DE222317495D4AF05E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		BAE25CF2EB582D6291235B50 /* TrinQuotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrinQuotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCDCFD564E6C76C9889776A8 /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = TrinQuotes/AppDelegate.swift; sourceTree = "<group>"; };
+		E2996956BCFB950704B0B137 /* QuoteRotator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuoteRotator.swift; path = TrinQuotes/QuoteRotator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3707FC18D48D8C96306BE9E5 /* Frameworks */ = {
+		55F121B89EEA77F6A74FBA95 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FE115467F79BF2EC19B414C /* Cocoa.framework in Frameworks */,
+				47601BE564E2583A655C629C /* Cocoa.framework in Frameworks */,
+				767D13CDECC189DA4A116BC5 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FBE944F00F925529ED01CEA4 /* Frameworks */ = {
+		AF18CD248A7149716678B38B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBD06A2D6077C1D2CCE2FAAE /* Cocoa.framework in Frameworks */,
-				F9FEC8F87622BA5629EA1960 /* XCTest.framework in Frameworks */,
+				9CCDB6E16D8AE1B4C06B2001 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3A8059D17E1CA6B51A7FA1F8 /* Products */ = {
+		82C56CAA99ECEB7527ECFF27 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1BF79138C3DD79DAE71B07CE /* TrinQuotes.app */,
-				6942578C7DB1EC80F4A919FC /* TrinQuotesTests.xctest */,
+				82F080D7C0A27982DA616381 /* TrinQuotes.app */,
+				BAE25CF2EB582D6291235B50 /* TrinQuotesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9566C3309463E3B59A07E439 /* TrinQuotes */ = {
+		AC4B9CA03BEF7BA43DE3F5D3 /* OS X */ = {
 			isa = PBXGroup;
 			children = (
-				3BDD40276C3426E73DE1CD6F /* AppDelegate.swift */,
-				F1D08E66BA365EC84A7DCBDE /* ManageQuotesWindowController.swift */,
-				42D89D01723A821AEB792B89 /* Models.swift */,
-				71EA65D05FF717F5F15E5FBB /* QuoteRotator.swift */,
-				6A78F094601186C7A65F4825 /* QuoteStore.swift */,
-				7455FA7E447845C3A409337F /* StatusBarController.swift */,
-				D6688054CCAEB160E10E6BA7 /* Info.plist */,
-			);
-			name = TrinQuotes;
-			sourceTree = "<group>";
-		};
-		B3034D6C8CDD23DDA025737F /* TrinQuotesTests */ = {
-			isa = PBXGroup;
-			children = (
-				60AD44FB74C4784471BF3441 /* QuoteRotatorTests.swift */,
-				08B0403C838AF95C22C66D04 /* QuoteStoreTests.swift */,
-			);
-			name = TrinQuotesTests;
-			sourceTree = "<group>";
-		};
-		CB520897027C5A7409CD1752 /* OS X */ = {
-			isa = PBXGroup;
-			children = (
-				396363D3642BE3A76CF47F36 /* Cocoa.framework */,
+				A7F1B5DE222317495D4AF05E /* Cocoa.framework */,
 			);
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		FC050E561BF1D9F69563CA3D = {
+		B2BD270DD6DB1F3F78E3C53C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3A8059D17E1CA6B51A7FA1F8 /* Products */,
-				FF44BA9AC0A36BED4A87D1C4 /* Frameworks */,
-				9566C3309463E3B59A07E439 /* TrinQuotes */,
-				B3034D6C8CDD23DDA025737F /* TrinQuotesTests */,
-			);
-			sourceTree = "<group>";
-		};
-		FF44BA9AC0A36BED4A87D1C4 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CB520897027C5A7409CD1752 /* OS X */,
-				9D82D1251D0A8BC29D03644B /* XCTest.framework */,
+				AC4B9CA03BEF7BA43DE3F5D3 /* OS X */,
+				7602037531FE7F92BE2E93D2 /* XCTest.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BFDF1C6A253F425DA8CE255C /* TrinQuotesTests */ = {
+			isa = PBXGroup;
+			children = (
+				26AE3E39F5936CD7367852DB /* QuoteRotatorTests.swift */,
+				70E9A7B88C54D2FA2F45959E /* QuoteStoreTests.swift */,
+			);
+			name = TrinQuotesTests;
+			sourceTree = "<group>";
+		};
+		DADF8094DC31F82A82E32376 /* TrinQuotes */ = {
+			isa = PBXGroup;
+			children = (
+				DCDCFD564E6C76C9889776A8 /* AppDelegate.swift */,
+				94BE25D00D90E6D6D64D6C35 /* ManageQuotesWindowController.swift */,
+				6D7094C8E6AEEE8B26C9D693 /* Models.swift */,
+				97325C02F127ABE99F6253ED /* main.swift */,
+				E2996956BCFB950704B0B137 /* QuoteRotator.swift */,
+				3A00893DCD1912AF7F2A87AF /* QuoteStore.swift */,
+				1EF6416883906272C02A58CF /* StatusBarController.swift */,
+				14CE784DECF74EE8C5DC9B3D /* Info.plist */,
+			);
+			name = TrinQuotes;
+			sourceTree = "<group>";
+		};
+		E106CC7687C91405E4CF435F = {
+			isa = PBXGroup;
+			children = (
+				82C56CAA99ECEB7527ECFF27 /* Products */,
+				B2BD270DD6DB1F3F78E3C53C /* Frameworks */,
+				DADF8094DC31F82A82E32376 /* TrinQuotes */,
+				BFDF1C6A253F425DA8CE255C /* TrinQuotesTests */,
+			);
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		664444E97B36C1CA23580FE7 /* TrinQuotesTests */ = {
+		0C2C10CE861B795B2EA996F5 /* TrinQuotesTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2510C099672B29F1638B3050 /* Build configuration list for PBXNativeTarget "TrinQuotesTests" */;
+			buildConfigurationList = 8977753F6566639079861CA7 /* Build configuration list for PBXNativeTarget "TrinQuotesTests" */;
 			buildPhases = (
-				411DC5B8E4B07F5AD6A1D95F /* Sources */,
-				FBE944F00F925529ED01CEA4 /* Frameworks */,
-				791046261B331AB9CDD51AFA /* Resources */,
+				734A6C81D1F0D8D080C9C7D5 /* Sources */,
+				55F121B89EEA77F6A74FBA95 /* Frameworks */,
+				6214A18EC129D4C86EEB739D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9A2A0F2C5CBAB002F17A1760 /* PBXTargetDependency */,
+				4E51ED6F886AE8C31BF2E8B7 /* PBXTargetDependency */,
 			);
 			name = TrinQuotesTests;
 			productName = TrinQuotesTests;
-			productReference = 6942578C7DB1EC80F4A919FC /* TrinQuotesTests.xctest */;
+			productReference = BAE25CF2EB582D6291235B50 /* TrinQuotesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B1CFB9D57B9E31DB3E188EF0 /* TrinQuotes */ = {
+		C2D7E3D79ABC2C78E3F83720 /* TrinQuotes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 231F47F55FB559EAEC3D6179 /* Build configuration list for PBXNativeTarget "TrinQuotes" */;
+			buildConfigurationList = 1FFCA78F16B7B23BBE9EB016 /* Build configuration list for PBXNativeTarget "TrinQuotes" */;
 			buildPhases = (
-				BF821F7C09191EF2020F4C5A /* Sources */,
-				3707FC18D48D8C96306BE9E5 /* Frameworks */,
-				A7334D0566BBBBC53312494D /* Resources */,
+				3E9865267F809E79649C173D /* Sources */,
+				AF18CD248A7149716678B38B /* Frameworks */,
+				FE61F8FDEED7052289B60E4D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -161,19 +164,19 @@
 			);
 			name = TrinQuotes;
 			productName = TrinQuotes;
-			productReference = 1BF79138C3DD79DAE71B07CE /* TrinQuotes.app */;
+			productReference = 82F080D7C0A27982DA616381 /* TrinQuotes.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B560A2DECE8F0AC747D16AF7 /* Project object */ = {
+		784855F02A92C9AF2B10AF4E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 			};
-			buildConfigurationList = F389C2FC79CD946517635A6F /* Build configuration list for PBXProject "TrinQuotes" */;
+			buildConfigurationList = 303396366317C07FCB7810BD /* Build configuration list for PBXProject "TrinQuotes" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -181,28 +184,28 @@
 				en,
 				Base,
 			);
-			mainGroup = FC050E561BF1D9F69563CA3D;
+			mainGroup = E106CC7687C91405E4CF435F;
 			minimizedProjectReferenceProxies = 0;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 3A8059D17E1CA6B51A7FA1F8 /* Products */;
+			productRefGroup = 82C56CAA99ECEB7527ECFF27 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B1CFB9D57B9E31DB3E188EF0 /* TrinQuotes */,
-				664444E97B36C1CA23580FE7 /* TrinQuotesTests */,
+				C2D7E3D79ABC2C78E3F83720 /* TrinQuotes */,
+				0C2C10CE861B795B2EA996F5 /* TrinQuotesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		791046261B331AB9CDD51AFA /* Resources */ = {
+		6214A18EC129D4C86EEB739D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A7334D0566BBBBC53312494D /* Resources */ = {
+		FE61F8FDEED7052289B60E4D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -212,58 +215,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		411DC5B8E4B07F5AD6A1D95F /* Sources */ = {
+		3E9865267F809E79649C173D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DD8F667AC8841569B81075F /* QuoteRotatorTests.swift in Sources */,
-				4CF8EA8AEDE389FC6FF27092 /* QuoteStoreTests.swift in Sources */,
+				8CC254D020D34251CC7723F9 /* AppDelegate.swift in Sources */,
+				D4FC99CD768926F50712C479 /* ManageQuotesWindowController.swift in Sources */,
+				9E687135F49E83FBB4BB92F3 /* Models.swift in Sources */,
+				24446B92FA2421DE4D169FB1 /* main.swift in Sources */,
+				28C3B10297BAE0F539B2DF4A /* QuoteRotator.swift in Sources */,
+				002F5C21610C0A578CC618C7 /* QuoteStore.swift in Sources */,
+				4874E534ED7724B5B1AEC517 /* StatusBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BF821F7C09191EF2020F4C5A /* Sources */ = {
+		734A6C81D1F0D8D080C9C7D5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				237B67B1866352281198B29A /* AppDelegate.swift in Sources */,
-				6E4EE8761D7A9F8608117175 /* ManageQuotesWindowController.swift in Sources */,
-				DD7462DCD81A888FB0FF4DC1 /* Models.swift in Sources */,
-				2673166CA528C626AD2A72C0 /* QuoteRotator.swift in Sources */,
-				A55224E3432A2098C42AF8D3 /* QuoteStore.swift in Sources */,
-				15B41EA6B639B57496FC2924 /* StatusBarController.swift in Sources */,
+				301D2B7D1A9C7C2D8351F7AC /* QuoteRotatorTests.swift in Sources */,
+				1C0B2378318BB8510704AEC1 /* QuoteStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9A2A0F2C5CBAB002F17A1760 /* PBXTargetDependency */ = {
+		4E51ED6F886AE8C31BF2E8B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = TrinQuotes;
-			target = B1CFB9D57B9E31DB3E188EF0 /* TrinQuotes */;
-			targetProxy = CF9B6917F78E79F0A647BC81 /* PBXContainerItemProxy */;
+			target = C2D7E3D79ABC2C78E3F83720 /* TrinQuotes */;
+			targetProxy = AEEEFD157BE10B2663AAD71F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		394401CBB250E89BEA5DBCC1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = TrinQuotes/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.trin.quotes;
-				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		4BF108532C45703AABEDFE14 /* Release */ = {
+		2DD0A30B8D8AB572E32D5547 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -317,7 +304,22 @@
 			};
 			name = Release;
 		};
-		C2C9CA6BE626622065D07EAC /* Debug */ = {
+		6F5058C48A6A00ED5C131A3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trin.quotes.tests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrinQuotes.app/Contents/MacOS/TrinQuotes";
+			};
+			name = Debug;
+		};
+		975EB1230443CDA725043DF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -334,22 +336,7 @@
 			};
 			name = Debug;
 		};
-		C5563E936E5609A0F9C43538 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.trin.quotes.tests;
-				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrinQuotes.app/Contents/MacOS/TrinQuotes";
-			};
-			name = Release;
-		};
-		DDD52A274D912C28D70D63A9 /* Debug */ = {
+		A013722F34B6EEF6A718DA87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -410,7 +397,24 @@
 			};
 			name = Debug;
 		};
-		FAC8E9654371E4C1DC9F63C1 /* Debug */ = {
+		E5362AD4588958F5DA1C5774 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = TrinQuotes/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trin.quotes;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		FB5823812DAF7FFE697D352E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -423,39 +427,39 @@
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrinQuotes.app/Contents/MacOS/TrinQuotes";
 			};
-			name = Debug;
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		231F47F55FB559EAEC3D6179 /* Build configuration list for PBXNativeTarget "TrinQuotes" */ = {
+		1FFCA78F16B7B23BBE9EB016 /* Build configuration list for PBXNativeTarget "TrinQuotes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				394401CBB250E89BEA5DBCC1 /* Release */,
-				C2C9CA6BE626622065D07EAC /* Debug */,
+				E5362AD4588958F5DA1C5774 /* Release */,
+				975EB1230443CDA725043DF1 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2510C099672B29F1638B3050 /* Build configuration list for PBXNativeTarget "TrinQuotesTests" */ = {
+		303396366317C07FCB7810BD /* Build configuration list for PBXProject "TrinQuotes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C5563E936E5609A0F9C43538 /* Release */,
-				FAC8E9654371E4C1DC9F63C1 /* Debug */,
+				A013722F34B6EEF6A718DA87 /* Debug */,
+				2DD0A30B8D8AB572E32D5547 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F389C2FC79CD946517635A6F /* Build configuration list for PBXProject "TrinQuotes" */ = {
+		8977753F6566639079861CA7 /* Build configuration list for PBXNativeTarget "TrinQuotesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DDD52A274D912C28D70D63A9 /* Debug */,
-				4BF108532C45703AABEDFE14 /* Release */,
+				FB5823812DAF7FFE697D352E /* Release */,
+				6F5058C48A6A00ED5C131A3E /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = B560A2DECE8F0AC747D16AF7 /* Project object */;
+	rootObject = 784855F02A92C9AF2B10AF4E /* Project object */;
 }

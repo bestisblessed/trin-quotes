@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B1CFB9D57B9E31DB3E188EF0"
+               BlueprintIdentifier = "C2D7E3D79ABC2C78E3F83720"
                BuildableName = "TrinQuotes.app"
                BlueprintName = "TrinQuotes"
                ReferencedContainer = "container:TrinQuotes.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "664444E97B36C1CA23580FE7"
+               BlueprintIdentifier = "0C2C10CE861B795B2EA996F5"
                BuildableName = "TrinQuotesTests.xctest"
                BlueprintName = "TrinQuotesTests"
                ReferencedContainer = "container:TrinQuotes.xcodeproj">
@@ -46,7 +46,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "664444E97B36C1CA23580FE7"
+               BlueprintIdentifier = "0C2C10CE861B795B2EA996F5"
                BuildableName = "TrinQuotesTests.xctest"
                BlueprintName = "TrinQuotesTests"
                ReferencedContainer = "container:TrinQuotes.xcodeproj">
@@ -64,6 +64,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C2D7E3D79ABC2C78E3F83720"
+            BuildableName = "TrinQuotes.app"
+            BlueprintName = "TrinQuotes"
+            ReferencedContainer = "container:TrinQuotes.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -71,6 +81,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C2D7E3D79ABC2C78E3F83720"
+            BuildableName = "TrinQuotes.app"
+            BlueprintName = "TrinQuotes"
+            ReferencedContainer = "container:TrinQuotes.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -1,6 +1,5 @@
 import AppKit
 
-@main
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private let store: QuoteStore = UserDefaultsQuoteStore()
 
