@@ -34,9 +34,9 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
 
     private let quoteInputField = QuoteInputTextField(string: "")
     private let addButton = NSButton(title: "Add", target: nil, action: nil)
-    private let editButton = NSButton(title: "Edit Selected", target: nil, action: nil)
-    private let removeButton = NSButton(title: "Remove Selected", target: nil, action: nil)
-    private let exportButton = NSButton(title: "Export Quotes", target: nil, action: nil)
+    private let editButton = NSButton(title: "Edit", target: nil, action: nil)
+    private let removeButton = NSButton(title: "Delete", target: nil, action: nil)
+    private let exportButton = NSButton(title: "Export", target: nil, action: nil)
     private let rotationField = NSTextField(string: "\(AppState.defaultRotationHours)")
 
     private let tableView = NSTableView()
@@ -63,8 +63,13 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
     func render(state: AppState) {
         quotes = state.quotes
         rotationHours = state.rotationHours
+        let previousSelectedRow = tableView.selectedRow
 
         tableView.reloadData()
+        if previousSelectedRow >= 0, previousSelectedRow < quotes.count {
+            tableView.selectRowIndexes(IndexSet(integer: previousSelectedRow), byExtendingSelection: false)
+            quoteInputField.stringValue = quotes[previousSelectedRow]
+        }
         updateSelectionButtons()
         rotationField.stringValue = "\(rotationHours)"
     }
@@ -160,8 +165,13 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         let quote = quoteInputField.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !quote.isEmpty else { return }
 
-        onAddQuote?(quote)
-        quoteInputField.stringValue = ""
+        let selectedRow = tableView.selectedRow
+        if selectedRow >= 0, selectedRow < quotes.count {
+            onEditQuoteAtIndex?(selectedRow, quote)
+        } else {
+            onAddQuote?(quote)
+            quoteInputField.stringValue = ""
+        }
     }
 
     @objc private func removeSelectedQuote() {

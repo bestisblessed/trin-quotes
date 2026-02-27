@@ -2,3 +2,4 @@
 .gems/
 *.xcuserstate
 xcuserdata/
+.codex/
