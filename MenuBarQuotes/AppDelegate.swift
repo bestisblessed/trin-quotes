@@ -83,10 +83,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             manageQuotesWindowController = controller
         }
 
-        controller.render(state: state)
         controller.showWindow(nil)
         controller.window?.makeKeyAndOrderFront(nil)
         NSApplication.shared.activate(ignoringOtherApps: true)
+        DispatchQueue.main.async { [weak self, weak controller] in
+            guard let self, let controller else { return }
+            controller.render(state: self.state)
+        }
     }
 
     private func addQuote(_ quote: String) {

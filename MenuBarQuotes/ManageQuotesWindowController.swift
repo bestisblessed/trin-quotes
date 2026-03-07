@@ -52,6 +52,7 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
     private let colorPresetPopup = NSPopUpButton()
     private let boldCheckbox = NSButton(checkboxWithTitle: "Bold", target: nil, action: nil)
     private var isRefreshingStyleControls = false
+    private var isRenderingState = false
 
     private let tableView = NSTableView()
 
@@ -75,16 +76,23 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
     }
 
     func render(state: AppState) {
+        isRenderingState = true
+        defer { isRenderingState = false }
+
         quotes = state.quotes
         rotationHours = state.rotationHours
         rotationMinutes = state.rotationMinutes
         menuBarStyle = state.menuBarStyle
         let previousSelectedRow = tableView.selectedRow
+        let selectedRow = (previousSelectedRow >= 0 && previousSelectedRow < quotes.count) ? previousSelectedRow : -1
 
         tableView.reloadData()
-        if previousSelectedRow >= 0, previousSelectedRow < quotes.count {
-            tableView.selectRowIndexes(IndexSet(integer: previousSelectedRow), byExtendingSelection: false)
-            quoteInputField.stringValue = quotes[previousSelectedRow]
+        if selectedRow >= 0 {
+            tableView.selectRowIndexes(IndexSet(integer: selectedRow), byExtendingSelection: false)
+            quoteInputField.stringValue = quotes[selectedRow]
+        } else {
+            tableView.deselectAll(nil)
+            quoteInputField.stringValue = ""
         }
         updateSelectionButtons()
         refreshRotationFieldStrings()
@@ -485,9 +493,13 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
     }
 
     func tableViewSelectionDidChange(_ notification: Notification) {
+        guard !isRenderingState else { return }
+
         let row = tableView.selectedRow
         if row >= 0, row < quotes.count {
             quoteInputField.stringValue = quotes[row]
+        } else {
+            quoteInputField.stringValue = ""
         }
         updateSelectionButtons()
     }
