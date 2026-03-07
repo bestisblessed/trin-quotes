@@ -25,6 +25,7 @@ final class QuoteInputTextField: NSTextField {
 
 final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate {
     var onAddQuote: ((String) -> Void)?
+    var onImportQuotes: (([String]) -> Void)?
     var onEditQuoteAtIndex: ((Int, String) -> Void)?
     var onRemoveQuoteAtIndex: ((Int) -> Void)?
     var onRotationIntervalChanged: ((Int, Int) -> Void)?
@@ -39,6 +40,7 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
     private let addButton = NSButton(title: "Add", target: nil, action: nil)
     private let editButton = NSButton(title: "Edit", target: nil, action: nil)
     private let removeButton = NSButton(title: "Delete", target: nil, action: nil)
+    private let importButton = NSButton(title: "Import", target: nil, action: nil)
     private let exportButton = NSButton(title: "Export", target: nil, action: nil)
     private let styleButton = NSButton(title: "Style…", target: nil, action: nil)
     private let doneButton = NSButton(title: "Done", target: nil, action: nil)
@@ -132,6 +134,8 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         editButton.action = #selector(editSelectedQuote)
         exportButton.target = self
         exportButton.action = #selector(exportQuotes)
+        importButton.target = self
+        importButton.action = #selector(importQuotes)
         styleButton.target = self
         styleButton.action = #selector(showStylePopover)
         doneButton.target = self
@@ -173,6 +177,7 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
 
         bottomRow.addArrangedSubview(editButton)
         bottomRow.addArrangedSubview(removeButton)
+        bottomRow.addArrangedSubview(importButton)
         bottomRow.addArrangedSubview(exportButton)
         bottomRow.addArrangedSubview(styleButton)
         bottomRow.addArrangedSubview(doneButton)
@@ -249,9 +254,62 @@ final class ManageQuotesWindowController: NSWindowController, NSTableViewDataSou
         }
     }
 
+    @objc private func importQuotes() {
+        let panel = NSOpenPanel()
+        panel.title = "Import Quotes"
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = true
+        panel.allowedContentTypes = importableContentTypes()
+
+        guard panel.runModal() == .OK else { return }
+
+        let importedQuotes = panel.urls.flatMap { parseQuotes(from: $0) }
+        guard !importedQuotes.isEmpty else { return }
+
+        onImportQuotes?(importedQuotes)
+    }
+
     @objc private func doneManagingQuotes() {
         window?.makeFirstResponder(nil)
         close()
+    }
+
+    private func importableContentTypes() -> [UTType] {
+        var contentTypes: [UTType] = [.plainText, .commaSeparatedText]
+        if let markdownType = UTType(filenameExtension: "md") {
+            contentTypes.append(markdownType)
+        }
+        return contentTypes
+    }
+
+    private func parseQuotes(from url: URL) -> [String] {
+        guard let content = try? String(contentsOf: url, encoding: .utf8) else { return [] }
+        let ext = url.pathExtension.lowercased()
+        if ext == "csv" {
+            return parseCSVQuotes(content)
+        }
+        return parseLineQuotes(content)
+    }
+
+    private func parseLineQuotes(_ content: String) -> [String] {
+        content
+            .components(separatedBy: .newlines)
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+    }
+
+    private func parseCSVQuotes(_ content: String) -> [String] {
+        content
+            .components(separatedBy: .newlines)
+            .flatMap { line in
+                line.split(separator: ",").map { cell in
+                    cell
+                        .trimmingCharacters(in: .whitespacesAndNewlines)
+                        .trimmingCharacters(in: CharacterSet(charactersIn: "\""))
+                }
+            }
+            .filter { !$0.isEmpty }
     }
 
     @objc private func showStylePopover() {

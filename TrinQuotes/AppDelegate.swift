@@ -65,6 +65,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             controller.onAddQuote = { [weak self] quote in
                 self?.addQuote(quote)
             }
+            controller.onImportQuotes = { [weak self] quotes in
+                self?.addQuotes(quotes)
+            }
             controller.onEditQuoteAtIndex = { [weak self] index, quote in
                 self?.editQuote(at: index, with: quote)
             }
@@ -89,6 +92,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func addQuote(_ quote: String) {
         mutateState { state in
             state.quotes.append(quote)
+            if state.currentIndex == nil {
+                state.currentIndex = 0
+                state.lastRotationAt = Date()
+            }
+        }
+    }
+
+    private func addQuotes(_ quotes: [String]) {
+        let normalizedQuotes = quotes
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        guard !normalizedQuotes.isEmpty else { return }
+
+        mutateState { state in
+            state.quotes.append(contentsOf: normalizedQuotes)
             if state.currentIndex == nil {
                 state.currentIndex = 0
                 state.lastRotationAt = Date()
