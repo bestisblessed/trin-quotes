@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		002F5C21610C0A578CC618C7 /* QuoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A00893DCD1912AF7F2A87AF /* QuoteStore.swift */; };
+		A1B2C3D4E5F6012345678901 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6012345678902 /* Assets.xcassets */; };
 		24446B92FA2421DE4D169FB1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97325C02F127ABE99F6253ED /* main.swift */; };
 		28C3B10297BAE0F539B2DF4A /* QuoteRotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2996956BCFB950704B0B137 /* QuoteRotator.swift */; };
 		47601BE564E2583A655C629C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F1B5DE222317495D4AF05E /* Cocoa.framework */; };
@@ -38,6 +39,7 @@
 		82F080D7C0A27982DA616381 /* MenuBarQuotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuBarQuotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94BE25D00D90E6D6D64D6C35 /* ManageQuotesWindowController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ManageQuotesWindowController.swift; path = MenuBarQuotes/ManageQuotesWindowController.swift; sourceTree = "<group>"; };
 		97325C02F127ABE99F6253ED /* main.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = main.swift; path = MenuBarQuotes/main.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F6012345678902 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MenuBarQuotes/Assets.xcassets; sourceTree = "<group>"; };
 		A7F1B5DE222317495D4AF05E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.0.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		BAE25CF2EB582D6291235B50 /* MenuBarQuotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MenuBarQuotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCDCFD564E6C76C9889776A8 /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MenuBarQuotes/AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				E2996956BCFB950704B0B137 /* QuoteRotator.swift */,
 				3A00893DCD1912AF7F2A87AF /* QuoteStore.swift */,
 				1EF6416883906272C02A58CF /* StatusBarController.swift */,
+				A1B2C3D4E5F6012345678902 /* Assets.xcassets */,
 				14CE784DECF74EE8C5DC9B3D /* Info.plist */,
 			);
 			name = MenuBarQuotes;
@@ -194,6 +197,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B2C3D4E5F6012345678901 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,9 +320,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MenuBarQuotes/MenuBarQuotes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 6W75P7VJ4U;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MenuBarQuotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -402,9 +408,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MenuBarQuotes/MenuBarQuotes.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 6W75P7VJ4U;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MenuBarQuotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
